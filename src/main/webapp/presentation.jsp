@@ -68,8 +68,8 @@
 </body>
 </html>
 
-<script>
-    import {sfondoFetch} from "./sfondoFetch";
+<%--<script>--%>
+<%--    import {sfondoFetch} from "./sfondoFetch";--%>
 
-    sfondoFetch("rome");
-</script>
+<%--    sfondoFetch("rome");--%>
+<%--</script>--%>
