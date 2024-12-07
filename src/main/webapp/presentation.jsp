@@ -1,120 +1,75 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" %>
 <%@ page import="java.*" %>
-<%--import libreria jstl per tag invece delle scriptlet--%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
 <!DOCTYPE html>
 <html>
 <head>
 
-    <title>
-        Calendario <c:out value="${requestScope.meseString}"/> - <c:out value="${requestScope.anno}"/>
+    <%
+        String meseString = (String) request.getAttribute("meseString");
+        int anno = (int) request.getAttribute("anno");
+
+    %>
+
+    <title>Calendario <%= anno + " " + meseString %>
     </title>
-
-    <%--    foglio css--%>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="style.css"/>
 </head>
-<body class="flex">
-<main>
+<body>
 
 
-    <h1 class="title">
-        <c:out value="${requestScope.meseString}"/>
-    </h1>
+<%
+    int[][] matrix = (int[][]) request.getAttribute("matrix");
 
-    <h2 class="sub-title">
-        <c:out value="${requestScope.anno}"/>
-    </h2>
+    if (matrix == null) {
+        response.sendError(404, "matrice è null");
+    }
 
-    <table>
-        <thead>
-        <tr>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Lun"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Mart"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Merc"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Giov"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Ven"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Sab"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Dom"/>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="row" items="${requestScope.matrix}">
+    StringBuilder sb = new StringBuilder();
 
-            <tr>
-                <c:forEach var="n" items="${row}">
+    sb.append("<center>");
+    sb.append(" <h1 style='font-size:3em;margin:0em;'>").append(meseString).append("</h1>");
+    sb.append("<h2 style='font-size:2em;'>").append(anno).append("</h2>");
+    sb.append("<table>\n" +
+            "    <thead>\n" +
+            "        <tr>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Lun</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Mart</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Merc</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Giov</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Ven</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Sab</th>\n" +
+            "            <th class=\"cell font2  m2-inline p1\">Dom</th>\n" +
+            "        </tr>\n" +
+            "    </thead>\n");
 
-                    <c:choose>
-                        <c:when test="${n == 0}">
-                            <td class="cell font2  m2-inline p1"></td>
-                        </c:when>
-                        <c:otherwise>
-                            <td class="cell font2  m2-inline p1">
-                                <c:out value="${n}"/>
-                            </td>
-                        </c:otherwise>
-                    </c:choose>
+    sb.append("<tbody>");
+    for (int i = 0; i < matrix.length; i++) {
+        sb.append("<tr>");
+        for (int j = 0; j < matrix[i].length; j++) {
 
-                </c:forEach>
-            </tr>
+            if (matrix[i][j] == 0) {
+                sb.append("<td class=\"cell font2 m2-inline p1\" >").append(" ").append("</td>");
 
-        </c:forEach>
-        </tbody>
-    </table>
+            } else {
 
-</main>
-<div class="flex flex-col">
+                sb.append("<td class=\"cell font2 m2-inline p1\" >").append(matrix[i][j]).append("</td>");
 
-    <div class="p1 align-center">
-        <a type="button" href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
+            }
 
-          <c:choose>
-                <c:when test="${requestScope.mese == 12}">
-                    <c:param name='mese' value='${1}' />
-                    <c:param name='anno' value='${requestScope.anno + 1}' />
-                </c:when>
-               <c:otherwise>
-                     <c:param name='mese' value='${requestScope.mese + 1}' />
-                     <c:param name='anno' value='${requestScope.anno}' />
-                </c:otherwise>
-          </c:choose>
-
-        </c:url>">vai avanti</a>
-    </div>
-
-    <div class="p1">
-
-        <a type="button" href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
-           <c:choose>
-                <c:when test="${requestScope.mese == 1}">
-                    <c:param name='mese' value='${12}' />
-                    <c:param name='anno' value='${requestScope.anno - 1}' />
-                </c:when>
-               <c:otherwise>
-                     <c:param name='mese' value='${requestScope.mese - 1}' />
-                     <c:param name='anno' value='${requestScope.anno}' />
-                </c:otherwise>
-          </c:choose>
-        </c:url>">vai indietro</a>
-
-    </div>
-
-</div>
-
+        }
+        sb.append("</tr>");
+    }
+    sb.append("</tbody>");
+    sb.append("</table>");
+    sb.append("</center>");
+    out.println(sb.toString());
+%>
 
 </body>
 </html>
+
+<script>
+    import {sfondoFetch} from "./sfondoFetch";
+
+    sfondoFetch("rome");
+</script>
