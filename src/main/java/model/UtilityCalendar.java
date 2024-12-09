@@ -1,6 +1,4 @@
-package util;
-
-import java.util.Arrays;
+package model;
 
 public class UtilityCalendar {
 
@@ -60,15 +58,23 @@ public class UtilityCalendar {
         return currDay;
     }
 
-    public String[] getMesi() {
-        return mesi;
-    }
-
     public boolean IsFirstDayFound() {
         return isFirstDayFound;
     }
 
     public void AddOneDay() {
         setCurrDay(getCurrDay() + 1);
+    }
+
+    public String[] getMesiArr() {
+        return mesi;
+    }
+
+    public void ResetAll() {
+        setFirstDayFound(false);
+        setCurrDay(1);
+        setLastDay(0);
+        setFirstRow(new int[7]);
+        setMatrix(new int[6][7]);
     }
 }
