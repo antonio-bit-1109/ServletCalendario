@@ -1,19 +1,11 @@
-package servletcalendar;
+package model;
 
-
-import util.UtilityCalendar;
-
-import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-@WebServlet("/generaCale")
-public class ServletCalendar extends HttpServlet {
+public class GenerateCalendar {
 
     // class containing all the method and utility items
     private UtilityCalendar utilCalen;
@@ -23,7 +15,7 @@ public class ServletCalendar extends HttpServlet {
     }
 
     //costrutt
-    public ServletCalendar() {
+    public GenerateCalendar() {
         setUtilCalen(new UtilityCalendar(
                 1,
                 false,
@@ -38,45 +30,12 @@ public class ServletCalendar extends HttpServlet {
         return utilCalen;
     }
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String mese = req.getParameter("mese");
-        String anno = req.getParameter("anno");
-
-        int meseNum = Integer.parseInt(mese);
-        int annoNum = Integer.parseInt(anno);
-
-        if (meseNum < 1 || meseNum > 12) {
-            resp.sendError(400, "hai inserito un mese non valido. Inserisci una valore compreso tra 1 e 12");
-            return;
-        }
-
-        if (annoNum < 1920) {
-            resp.sendError(400, "la data non può essere inferiore al 1920.");
-            return;
-        }
-
-        GenerateCalendar(meseNum, annoNum, resp);
-
-        // Aggiungi i dati al contesto della richiesta
-        req.setAttribute("matrix", getUtilCalen().getMatrix());
-        req.setAttribute("mese", meseNum);
-        req.setAttribute("anno", annoNum);
-        req.setAttribute("meseString", getUtilCalen().getMesi()[meseNum - 1]);
-
-        // Effettua il dispatching verso la JSP
-        req.getRequestDispatcher("presentation.jsp").forward(req, resp);
-
-    }
-
     // metodo per la generazione della logica del calendario
-    private void GenerateCalendar(int mese, int anno, HttpServletResponse resp) throws IOException {
+    public void GenerateCalendarMethod(int mese, int anno) throws IOException {
 
         // ritorna qual'è il primo giorno del mese del tipo enum (MONDAY , THUESDAY , ...FRIDAY ECC ECC  )
         LocalDate dayOne = LocalDate.of(anno, mese, 1);
         DayOfWeek dayOfweek = dayOne.getDayOfWeek();
-
 
         // ritorna quanti giorni totali ha il mese selezionato
         int daysInMonth = dayOne.lengthOfMonth();
@@ -105,17 +64,14 @@ public class ServletCalendar extends HttpServlet {
                 if (getUtilCalen().getCurrDay() > getUtilCalen().getLastDay()) {
                     break;
                 }
-
-
+                
                 utilCalen.getMatrix()[i][j] = getUtilCalen().getCurrDay();
                 getUtilCalen().AddOneDay();
 
-
             }
-
         }
-
     }
+
 
     //populate array that will be first row of the matrix a partire dallo starting point
     private int[] DecideFirstDay(DayOfWeek dayofweek) {
@@ -131,4 +87,7 @@ public class ServletCalendar extends HttpServlet {
         getUtilCalen().setFirstDayFound(true);
         return arrROW;
     }
+
 }
+
+
