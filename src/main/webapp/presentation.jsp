@@ -119,6 +119,4 @@
 </body>
 </html>
 
-<script>
-    
-</script>
+<div></div>
