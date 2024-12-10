@@ -7,7 +7,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Objects;
+import java.util.ArrayList;
+
 
 // effettuo tutte le crud relative all utente
 // readUtente
@@ -30,6 +31,7 @@ public class UtentiDAO {
         return Dbconnection;
     }
 
+    // read utente
     public UtenteDTO GetUtente(String username) throws SQLException {
 
         UtenteDTO user;
@@ -52,12 +54,38 @@ public class UtentiDAO {
             }
             return user;
         } catch (SQLException ex) {
-            throw new SQLException("errore durante la get dell utente.");
+            throw new SQLException("errore durante la get dell utente." + ex);
         }
 
     }
 
+    // get all users
+    public ArrayList<UtenteDTO> getAllUsers() throws SQLException {
 
+        try (Connection conn = getDbconnection().getConnection()) {
+
+            PreparedStatement stmt = conn.prepareStatement("SELECT username , password from utenti");
+
+            ResultSet result = stmt.executeQuery();
+
+            ArrayList<UtenteDTO> listaUtenti = new ArrayList<>();
+
+            while (result.next()) {
+                UtenteDTO utente = new UtenteDTO();
+                utente.setUsername(result.getString("username"));
+                utente.setPassword(result.getString("password"));
+                listaUtenti.add(utente);
+            }
+
+            return listaUtenti;
+
+        } catch (SQLException e) {
+            throw new SQLException("errore durante la get di tutti gli utenti" + e);
+        }
+    }
+
+
+    // create utente
     public int InsertNewUtente(String username, String psw) throws SQLException {
         try (Connection conn = getDbconnection().getConnection()) {
 
@@ -71,10 +99,11 @@ public class UtentiDAO {
 
             return stmt.executeUpdate();
         } catch (SQLException ex) {
-            throw new SQLException("errore durante la insert dell utente.");
+            throw new SQLException("errore durante la insert dell utente." + ex);
         }
     }
 
+    // update utente
     public void updatePswUtente(String username, String Password, String newPassword, String nomeUtenteSession) throws SQLException {
         Connection conn = getDbconnection().getConnection();
         try {
@@ -107,10 +136,11 @@ public class UtentiDAO {
             conn.commit();
         } catch (SQLException ex) {
             conn.rollback();
-            throw new SQLException("errore durante la insert dell utente.");
+            throw new SQLException("errore durante la insert dell utente." + ex);
         }
     }
 
+    // delete utente
     public void deleteUtente(String username, String psw) throws SQLException {
         try (Connection conn = getDbconnection().getConnection()) {
 
@@ -125,7 +155,7 @@ public class UtentiDAO {
                 throw new RuntimeException("utente cancellato, valore inatteso.");
             }
         } catch (SQLException ex) {
-            throw new SQLException("errore durante la insert dell utente.");
+            throw new SQLException("errore durante la insert dell utente." + ex);
         }
 
     }

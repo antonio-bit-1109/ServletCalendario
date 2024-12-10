@@ -81,6 +81,21 @@
     </div>
 </div>
 
+<div>
+    <h4>recupera tutti gli utenti</h4>
+    <form action="" method="get">
+
+        <button type="submit"> recupera utenti</button>
+    </form>
+    <div>
+        <c:choose>
+            <c:when test="${requestScope.msgDeleteSucc != null}">
+                <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>
+            </c:when>
+        </c:choose>
+    </div>
+</div>
+
 
 </body>
 </html>
