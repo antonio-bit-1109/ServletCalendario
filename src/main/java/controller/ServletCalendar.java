@@ -3,6 +3,7 @@ package controller;
 
 import model.GenerateCalendar;
 import model.UtilityCalendar;
+import service.UtentiService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -17,8 +18,7 @@ import java.time.LocalDate;
 public class ServletCalendar extends HttpServlet {
 
     private GenerateCalendar generateCalendar;
-
-
+    
     public void setGenerateCalendar(GenerateCalendar generateCalendar) {
         this.generateCalendar = generateCalendar;
     }
@@ -26,8 +26,8 @@ public class ServletCalendar extends HttpServlet {
     // costrutt
     public ServletCalendar() {
         setGenerateCalendar(new GenerateCalendar());
-    }
 
+    }
 
     public GenerateCalendar getGenerateCalendar() {
         return generateCalendar;
