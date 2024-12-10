@@ -31,7 +31,6 @@ public class ServletDeleteUtente extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-
         try {
             String username = req.getParameter("usernameDel");
             String psw = req.getParameter("passDel");
@@ -39,7 +38,7 @@ public class ServletDeleteUtente extends HttpServlet {
             getUtentiService().CancellaUtente(username, psw);
             req.setAttribute("msgDeleteSucc", "utente cancellato con successo");
             req.getRequestDispatcher("loginSuccess.jsp").forward(req, resp);
-            
+
         } catch (RuntimeException | SQLException e) {
             resp.sendError(500, String.valueOf(e));
         }
