@@ -28,8 +28,16 @@ body {
     text-align: center;
 }
 
+.font1 {
+    font-size: 1em;
+}
+
 .font2 {
     font-size: 2em;
+}
+
+.w-50 {
+    width: 50%;
 }
 
 .size3 {
@@ -56,6 +64,10 @@ body {
     flex-direction: column;
 }
 
+.align-start {
+    align-items: flex-start;
+}
+
 .m2-inline {
     margin-inline: 1em;
 }
@@ -80,4 +92,8 @@ body {
 
 .alt {
     height: 100vh;
+}
+
+.red {
+    color: red;
 }
