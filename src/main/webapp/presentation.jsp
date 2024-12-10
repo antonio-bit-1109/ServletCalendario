@@ -77,10 +77,13 @@
     </table>
 
 </main>
-<div class="flex flex-col">
 
-    <div class="p1 align-center">
-        <a type="button" href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
+<div class="flex flex-col "
+     style="justify-content: center; background-color: grey; align-self: center; margin-inline-start: 1em">
+
+    <div class="p1 align-center" style="padding: 1em">
+        <a style="font-size: 1.5em" type="button"
+           href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
 
           <c:choose>
                 <c:when test="${requestScope.mese == 12}">
@@ -96,9 +99,10 @@
         </c:url>">vai avanti</a>
     </div>
 
-    <div class="p1">
+    <div class="p1" style="padding: 1em">
 
-        <a type="button" href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
+        <a style="font-size: 1.5em" type="button"
+           href="<c:url value='http://localhost:8080/CalendarioServlet/generaCale'>
            <c:choose>
                 <c:when test="${requestScope.mese == 1}">
                     <c:param name='mese' value='${12}' />
@@ -113,6 +117,9 @@
 
     </div>
 
+    <div style="padding: 1em">
+        <a style="font-size: 1.5em" href="index.jsp"> torna indietro</a>
+    </div>
 
 </div>
 
