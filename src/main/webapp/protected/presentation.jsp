@@ -12,8 +12,10 @@
     </title>
 
     <%--    foglio css--%>
-    <link rel="stylesheet" type="text/css" href="style/style.css">
+    <link rel="stylesheet" href="style/style.css">
 </head>
+
+
 <body class="flex">
 <main>
 
@@ -64,7 +66,14 @@
                         </c:when>
                         <c:otherwise>
                             <td class="cell font2  m2-inline p1">
-                                <c:out value="${n}"/>
+                                    <%--                                <c:out value="${n}"/>--%>
+                                <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
+                                        <c:param name="mese" value="${requestScope.mese}"/>
+                                         <c:param name="anno" value="${requestScope.anno}"/>
+                                         <c:param name="giorno" value="${n}"/>
+
+
+                                </c:url>">${n}</a>
                             </td>
                         </c:otherwise>
                     </c:choose>
@@ -96,7 +105,7 @@
                 </c:otherwise>
           </c:choose>
 
-        </c:url>">vai avanti</a>
+        </c:url>">mese successivo</a>
     </div>
 
     <div class="p1" style="padding: 1em">
@@ -113,16 +122,17 @@
                      <c:param name='anno' value='${requestScope.anno}' />
                 </c:otherwise>
           </c:choose>
-        </c:url>">vai indietro</a>
+        </c:url>">mese precedente</a>
 
-    </div>
-
-    <div style="padding: 1em">
-        <a style="font-size: 1.5em" href="index.jsp"> torna indietro</a>
     </div>
 
 </div>
 
+<div>
+    <div style="padding: 1em">
+        <a style="font-size: 1.5em" href="formCalendar.jsp"> torna indietro</a>
+    </div>
+</div>
 
 </body>
 </html>

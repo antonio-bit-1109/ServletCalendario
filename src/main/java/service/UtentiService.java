@@ -24,7 +24,7 @@ public class UtentiService {
     }
 
     // metodo per implementare il login
-    public void login(String username, String password) throws SQLException {
+    public UtenteDTO login(String username, String password) throws SQLException {
         UtenteDTO user = getUtentiDao().GetUtente(username);
 
 
@@ -36,6 +36,7 @@ public class UtentiService {
             throw new RuntimeException("la password non corrisponde.");
         }
 
+        return user;
     }
 
     // metodo per creare nuovo utente
@@ -57,4 +58,5 @@ public class UtentiService {
     public void CancellaUtente(String username, String psw) throws SQLException {
         getUtentiDao().deleteUtente(username, psw);
     }
+
 }

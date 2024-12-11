@@ -18,7 +18,7 @@ import java.time.LocalDate;
 public class ServletCalendar extends HttpServlet {
 
     private GenerateCalendar generateCalendar;
-    
+
     public void setGenerateCalendar(GenerateCalendar generateCalendar) {
         this.generateCalendar = generateCalendar;
     }
@@ -70,7 +70,7 @@ public class ServletCalendar extends HttpServlet {
         req.setAttribute("meseString", meseString);
 
         // Effettua il dispatching verso la JSP
-        req.getRequestDispatcher("presentation.jsp").forward(req, resp);
+        req.getRequestDispatcher("/protected/presentation.jsp").forward(req, resp);
 
         // reset delle variabili in utility
         getGenerateCalendar().getUtilCalen().ResetAll();

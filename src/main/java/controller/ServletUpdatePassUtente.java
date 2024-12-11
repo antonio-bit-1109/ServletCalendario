@@ -1,5 +1,6 @@
 package controller;
 
+import dto.UtenteDTO;
 import service.UtentiService;
 
 import javax.servlet.ServletException;
@@ -40,16 +41,16 @@ public class ServletUpdatePassUtente extends HttpServlet {
             String oldPass = req.getParameter("oldPass");
             String newPass = req.getParameter("newPass");
 
-            String nomeUtenteSession = (String) session.getAttribute("nomeUtente");
+            UtenteDTO UtenteSession = (UtenteDTO) session.getAttribute("user");
 
-            if (nomeUtenteSession == null) {
+            if (UtenteSession == null) {
                 throw new RuntimeException("nessun nome utente salvato in sessione.");
             }
 
-            getUtentiService().EditPasswordUtente(username, oldPass, newPass, nomeUtenteSession);
+            getUtentiService().EditPasswordUtente(username, oldPass, newPass, UtenteSession.getUsername());
 
             req.setAttribute("editPswSucc", "password modificata con successo");
-            req.getRequestDispatcher("loginSuccess.jsp").forward(req, resp);
+            req.getRequestDispatcher("modificaUtenti.jsp").forward(req, resp);
         } catch (RuntimeException | SQLException e) {
             resp.sendError(500, String.valueOf(e));
         }

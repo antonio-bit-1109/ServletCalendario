@@ -23,6 +23,7 @@ public class UtentiDAO {
         Dbconnection = dbconnection;
     }
 
+    //costrutt
     public UtentiDAO() throws SQLException {
         setDbconnection(DbConnectionSingleton.getInstance());
     }
@@ -38,7 +39,7 @@ public class UtentiDAO {
         try {
 
             Connection conn = getDbconnection().getConnection();
-            PreparedStatement stmt = conn.prepareStatement("SELECT username , password from utenti where username = ?");
+            PreparedStatement stmt = conn.prepareStatement("SELECT id , username , password from utenti where username = ?");
             stmt.setString(1, username);
 
             stmt.executeQuery();
@@ -48,7 +49,7 @@ public class UtentiDAO {
             user = new UtenteDTO();
 
             while (result.next()) {
-
+                user.setId(result.getInt("id"));
                 user.setUsername(result.getString("username"));
                 user.setPassword(result.getString("password"));
             }

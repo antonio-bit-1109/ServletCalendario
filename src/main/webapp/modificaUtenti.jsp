@@ -15,7 +15,7 @@
 </head>
 <body>
 
-<h1>Login effettuato con successo, Benvenuto ${sessionScope.get("nomeUtente")}</h1>
+<h1>Login effettuato con successo, Benvenuto ${sessionScope.get("user")}</h1>
 
 <div>
     <h4>crea nuovo utente</h4>
@@ -81,20 +81,41 @@
     </div>
 </div>
 
-<div>
-    <h4>recupera tutti gli utenti</h4>
-    <form action="" method="get">
+<%--<div>--%>
+<%--    <h4>recupera tutti gli utenti</h4>--%>
+<%--    <form action="" method="get">--%>
 
-        <button type="submit"> recupera utenti</button>
-    </form>
-    <div>
-        <c:choose>
-            <c:when test="${requestScope.msgDeleteSucc != null}">
-                <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>
-            </c:when>
-        </c:choose>
-    </div>
-</div>
+<%--        <button type="submit"> recupera utenti</button>--%>
+<%--    </form>--%>
+
+<%--    <c:choose>--%>
+<%--        <c:when test="">--%>
+<%--            <table>--%>
+<%--                <thead>--%>
+<%--                <tr>--%>
+<%--                    <th>id</th>--%>
+<%--                    <th>username</th>--%>
+<%--                </tr>--%>
+<%--                </thead>--%>
+<%--                <tbody>--%>
+<%--                <tr>--%>
+<%--                        &lt;%&ndash;            <td>ciao</td>&ndash;%&gt;--%>
+<%--                        &lt;%&ndash;            <td>bello</td>&ndash;%&gt;--%>
+<%--                </tr>--%>
+<%--                </tbody>--%>
+<%--            </table>--%>
+<%--        </c:when>--%>
+
+<%--    </c:choose>--%>
+
+<%--    &lt;%&ndash;    <div>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;        <c:choose>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;            <c:when test="${requestScope.msgDeleteSucc != null}">&ndash;%&gt;--%>
+<%--    &lt;%&ndash;                <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;            </c:when>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;        </c:choose>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;    </div>&ndash;%&gt;--%>
+<%--</div>--%>
 
 
 </body>

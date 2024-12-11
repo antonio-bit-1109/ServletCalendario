@@ -38,7 +38,7 @@ public class ServletCreaNewUtente extends HttpServlet {
 
             getUtentiService().creaNuovoUtente(username, pass);
             req.setAttribute("msgSucc", "utente creato con successo");
-            req.getRequestDispatcher("loginSuccess.jsp").forward(req, resp);
+            req.getRequestDispatcher("modificaUtenti.jsp").forward(req, resp);
             //resp.sendRedirect("http://localhost:8080/CalendarioServlet/loginSuccess.jsp?msg=utente%20creato%20con%20successo");
         } catch (SQLException e) {
             resp.sendError(500, String.valueOf(e));

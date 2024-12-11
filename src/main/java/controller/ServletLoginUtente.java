@@ -1,5 +1,6 @@
 package controller;
 
+import dto.UtenteDTO;
 import service.UtentiService;
 
 
@@ -35,13 +36,13 @@ public class ServletLoginUtente extends HttpServlet {
             String Username = req.getParameter("username");
             String psw = req.getParameter("password");
 
-            getUtentiService().login(Username, psw);
+            UtenteDTO utente = getUtentiService().login(Username, psw);
             // dopo la login salvo username dell utente in una sessione.
-            if (session.getAttribute("nomeUtente") == null) {
-                session.setAttribute("nomeUtente", Username);
+            if (session.getAttribute("user") == null) {
+                session.setAttribute("user", utente);
             }
-            
-            resp.sendRedirect("http://localhost:8080/CalendarioServlet/loginSuccess.jsp");
+
+            resp.sendRedirect("http://localhost:8080/CalendarioServlet/formCalendar.jsp");
 
         } catch (RuntimeException | SQLException e) {
             resp.sendError(500, String.valueOf(e));

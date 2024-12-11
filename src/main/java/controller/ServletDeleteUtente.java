@@ -37,7 +37,7 @@ public class ServletDeleteUtente extends HttpServlet {
 
             getUtentiService().CancellaUtente(username, psw);
             req.setAttribute("msgDeleteSucc", "utente cancellato con successo");
-            req.getRequestDispatcher("loginSuccess.jsp").forward(req, resp);
+            req.getRequestDispatcher("modificaUtenti.jsp").forward(req, resp);
 
         } catch (RuntimeException | SQLException e) {
             resp.sendError(500, String.valueOf(e));
