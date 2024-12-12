@@ -63,19 +63,15 @@
                         <c:when test="${n == 0}">
                             <td class="cell font2  m2-inline p1"></td>
                         </c:when>
+
+                        <%--                        <c:when test="${ requestScope.densitaImpegniMese  != null }">--%>
+                        <%--                            <td class="cell font2  m2-inline p1"> ciao</td>--%>
+                        <%--                        </c:when>--%>
+
                         <c:otherwise>
 
-                            La mappa mi arriva sul front end e la devo ciclare per far vedere i colori di bg della cella
-
-                            <%--                            <c:forEach var="entry" items="${myMap}">--%>
-                            <%--                                <tr>--%>
-                            <%--                                    <td>${entry.key}</td>--%>
-                            <%--                                    <td>${entry.value}</td>--%>
-                            <%--                                </tr>--%>
-                            <%--                            </c:forEach>--%>
-
                             <td class="cell font2  m2-inline p1">
-                                    <%--                                <c:out value="${n}"/>--%>
+
                                 <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
                                         <c:param name="mese" value="${requestScope.mese}"/>
                                          <c:param name="anno" value="${requestScope.anno}"/>
