@@ -23,6 +23,7 @@
         <table style="margin-block: 2em" border="2">
             <thead>
             <tr>
+                <th>id appuntamento</th>
                 <th class="p1">data</th>
                 <th class="p1">ora</th>
                 <th class="p1">descrizione appuntamento</th>
@@ -32,9 +33,18 @@
             <tbody>
             <c:forEach var="objApp" items="${requestScope.listaAppuntamenti}">
                 <tr>
+                    <td class="p1"><c:out value="${objApp.id}"/></td>
                     <td class="p1"><c:out value="${objApp.data}"/></td>
                     <td class="p1"><c:out value="${objApp.ora}"/></td>
                     <td class="p1"><c:out value="${objApp.descrizione}"/></td>
+                    <td>
+                        <a href="http://localhost:8080/CalendarioServlet/CancellaAppuntamento?idApp=${objApp.id}&giorno=${param.giorno}&mese=${param.mese}&anno=${param.anno}">cancella
+                            appuntamento</a>
+                    </td>
+                    <td>
+                        <a href="http://localhost:8080/CalendarioServlet/ShowFormModificaAppuntamento?idApp=${objApp.id}&giorno=${param.giorno}&mese=${param.mese}&anno=${param.anno}">
+                            modifica appuntamento</a>
+                    </td>
                 </tr>
             </c:forEach>
 
@@ -62,10 +72,10 @@
 
 
         <label for="inputOra">ora</label>
-        <input type="time" name="inputOra" id="inputOra">
+        <input type="time" name="inputOra" id="inputOra" required>
 
         <label for="inputDesc">descrizione</label>
-        <input type="text" name="inputDesc" id="inputDesc">
+        <input type="text" name="inputDesc" id="inputDesc" required>
 
         <button style="margin-block-start: 1em" type="submit"> Aggiungi appuntamento</button>
     </form>

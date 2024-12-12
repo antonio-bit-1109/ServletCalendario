@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="style/style.css">
 </head>
 
-
 <body class="flex">
 <main>
 
@@ -65,6 +64,16 @@
                             <td class="cell font2  m2-inline p1"></td>
                         </c:when>
                         <c:otherwise>
+
+                            La mappa mi arriva sul front end e la devo ciclare per far vedere i colori di bg della cella
+
+                            <%--                            <c:forEach var="entry" items="${myMap}">--%>
+                            <%--                                <tr>--%>
+                            <%--                                    <td>${entry.key}</td>--%>
+                            <%--                                    <td>${entry.value}</td>--%>
+                            <%--                                </tr>--%>
+                            <%--                            </c:forEach>--%>
+
                             <td class="cell font2  m2-inline p1">
                                     <%--                                <c:out value="${n}"/>--%>
                                 <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
@@ -130,7 +139,8 @@
 
 <div>
     <div style="padding: 1em">
-        <a style="font-size: 1.5em" href="formCalendar.jsp"> torna indietro</a>
+        <a style="font-size: 1.5em" href="login">
+            torna indietro</a>
     </div>
 </div>
 

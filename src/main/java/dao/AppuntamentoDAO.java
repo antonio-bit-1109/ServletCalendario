@@ -6,6 +6,8 @@ import utility.DbConnectionSingleton;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class AppuntamentoDAO {
 
@@ -44,7 +46,7 @@ public class AppuntamentoDAO {
 
             Connection conn = getDbconnection().getConnection();
 
-            PreparedStatement stmt = conn.prepareStatement("SELECT id_utente , data , ora , descrizione" +
+            PreparedStatement stmt = conn.prepareStatement("SELECT id , id_utente , data , ora , descrizione" +
                     " FROM appuntamenti" +
                     " where id_utente in " +
                     "(SELECT id from utenti where username = ? ) AND data = TO_DATE(?, 'DD/MM/YYYY')"
@@ -59,6 +61,7 @@ public class AppuntamentoDAO {
 
             while (result.next()) {
                 AppuntamentoDTO appObj = new AppuntamentoDTO();
+                appObj.setId(result.getInt("id"));
                 appObj.setIdUtente(result.getInt("id_utente"));
                 appObj.setData(result.getDate("data"));
                 appObj.setOra(result.getTime("ora"));
@@ -81,7 +84,8 @@ public class AppuntamentoDAO {
             Connection conn = getDbconnection().getConnection();
 
             PreparedStatement stmt = conn.prepareStatement(
-                    "INSERT INTO appuntamenti (id_utente , data , ora , descrizione) VALUES (?,to_date(? , 'dd/mm/yyyy'),?,?)"
+                    "INSERT INTO appuntamenti (id_utente , data , ora , descrizione)" +
+                            " VALUES (?,to_date(? , 'dd/mm/yyyy'),?,?)"
             );
 
             StringBuilder sb = new StringBuilder();
@@ -102,18 +106,69 @@ public class AppuntamentoDAO {
         }
     }
 
-    public void ModificaAppuntamento() throws SQLException {
+    public void ModificaAppuntamentoDb(int idApp, String giorno, String mese, String anno, String nuovaOra, String nuovaDesc) throws SQLException {
 
-        try (Connection conn = getDbconnection().getConnection()) {
+        try {
+            Connection conn = getDbconnection().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("UPDATE appuntamenti " +
+                    " SET data = to_date( ? , 'dd/mm/yyyy') ," +
+                    " ora = ? ," +
+                    " descrizione = ?" +
+                    " where id = ? ");
+
+            StringBuilder sb = new StringBuilder();
+            StringBuilder sb1 = new StringBuilder();
+
+            stmt.setString(1, sb.append(giorno).append("/").append(mese).append("/").append(anno).toString());
+            stmt.setTime(2, Time.valueOf(sb1.append(nuovaOra).append(":").append("00").toString()));
+            stmt.setString(3, nuovaDesc);
+            stmt.setInt(4, idApp);
+
+            if (stmt.executeUpdate() != 1) {
+                throw new SQLException("Errore durante la modifica dell'appuntamento.");
+            }
 
         } catch (SQLException ex) {
             throw new SQLException(ex);
         }
     }
 
-    public void CancellaAppuntamento() throws SQLException {
+    public void DeleteAppuntamentoDb(int idAppuntamento) throws SQLException {
 
-        try (Connection conn = getDbconnection().getConnection()) {
+        try {
+            Connection conn = getDbconnection().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("DELETE FROM appuntamenti where id = ?");
+            stmt.setInt(1, idAppuntamento);
+
+            if (stmt.executeUpdate() != 1) {
+                throw new SQLException("errore durante la cancellazione dell'appuntamento.");
+            }
+        } catch (SQLException ex) {
+            throw new SQLException(ex);
+        }
+    }
+
+    public ArrayList<String> GetAppuntamentiDelMese(String anno, String mese) throws SQLException {
+        try {
+            Connection conn = getDbconnection().getConnection();
+            PreparedStatement stmt = conn.prepareStatement("SELECT  extract (day from ap.data) as qtaImpegni" +
+                    " FROM appuntamenti ap" +
+                    " WHERE extract (YEAR from ap.data) = ? AND extract (MONTH from ap.data) = ? " +
+                    " order by extract (day from ap.data) asc");
+
+            stmt.setInt(1, Integer.parseInt(anno));
+            stmt.setInt(2, Integer.parseInt(mese));
+
+            ResultSet res = stmt.executeQuery();
+
+            ArrayList<String> listaImpegni = new ArrayList<>();
+
+            while (res.next()) {
+                String val = res.getString("qtaImpegni");
+                listaImpegni.add(val);
+            }
+
+            return listaImpegni;
 
         } catch (SQLException ex) {
             throw new SQLException(ex);

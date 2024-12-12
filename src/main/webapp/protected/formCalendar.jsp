@@ -9,7 +9,7 @@
 <html>
 <head>
     <title>Inserisci dati calendario </title>
-    <link rel="stylesheet" href="style/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/style/style.css"/>
 </head>
 <body>
 
@@ -30,7 +30,7 @@
 </form>
 
 <div>
-    <a href="modificaUtenti.jsp"> modifica utenti</a>
+    <a href="../modificaUtenti.jsp"> modifica utenti</a>
 </div>
 
 </body>

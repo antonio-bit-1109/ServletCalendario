@@ -5,10 +5,15 @@ import java.util.Date;
 
 public class AppuntamentoDTO {
 
+    private int id;
     private int idUtente;
     private Date data;
     private Time ora;
     private String descrizione;
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setIdUtente(int idUtente) {
         this.idUtente = idUtente;
@@ -28,6 +33,10 @@ public class AppuntamentoDTO {
 
     //costrutt VUOTO
     public AppuntamentoDTO() {
+    }
+
+    public int getId() {
+        return id;
     }
 
     public int getIdUtente() {

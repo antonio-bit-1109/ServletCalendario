@@ -4,6 +4,8 @@ import dto.UtenteDTO;
 import service.UtentiService;
 
 
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,6 +32,12 @@ public class ServletLoginUtente extends HttpServlet {
         return utentiService;
     }
 
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        RequestDispatcher dispatcher = req.getRequestDispatcher("/protected/formCalendar.jsp");
+        dispatcher.forward(req, resp);
+    }
+
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         try {
             HttpSession session = req.getSession();
@@ -42,10 +50,14 @@ public class ServletLoginUtente extends HttpServlet {
                 session.setAttribute("user", utente);
             }
 
-            resp.sendRedirect("http://localhost:8080/CalendarioServlet/formCalendar.jsp");
+            // resp.sendRedirect("http://localhost:8080/CalendarioServlet/webapp/WEB-INF/protected/formCalendar.jsp");
 
-        } catch (RuntimeException | SQLException e) {
+            RequestDispatcher dispatcher = req.getRequestDispatcher("/protected/formCalendar.jsp");
+            dispatcher.forward(req, resp);
+
+        } catch (RuntimeException | SQLException | ServletException e) {
             resp.sendError(500, String.valueOf(e));
+
         }
     }
 }
