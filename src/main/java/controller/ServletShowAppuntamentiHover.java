@@ -14,8 +14,8 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-@WebServlet("/MostraAppuntamenti")
-public class ServletMostraAppuntamenti extends HttpServlet {
+@WebServlet("/AppuntamentiFetch")
+public class ServletShowAppuntamentiHover extends HttpServlet {
 
     private AppuntamentiService appuntamentiService;
 
@@ -24,7 +24,7 @@ public class ServletMostraAppuntamenti extends HttpServlet {
     }
 
     //costrutt
-    public ServletMostraAppuntamenti() throws SQLException {
+    public ServletShowAppuntamentiHover() throws SQLException {
         setAppuntamentiService(new AppuntamentiService());
     }
 
@@ -35,25 +35,24 @@ public class ServletMostraAppuntamenti extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-
             HttpSession Session = req.getSession();
             UtenteDTO user = (UtenteDTO) Session.getAttribute("user");
 
-            String mese = req.getParameter("mese");
+
             String anno = req.getParameter("anno");
+            String mese = req.getParameter("mese");
             String giorno = req.getParameter("giorno");
 
-            ArrayList<AppuntamentoDTO> listaAppuntamenti = getAppuntamentiService().ottieniTuttiAppuntamentiGiorno(mese, anno, giorno, user);
+            ArrayList<AppuntamentoDTO> listaAppuntamentiTemp = getAppuntamentiService().ottieniTuttiAppuntamentiGiorno(mese, anno, giorno, user);
 
-            req.setAttribute("listaAppuntamenti", listaAppuntamenti);
+            req.setAttribute("listaAppuntamentiTemp", listaAppuntamentiTemp);
             req.getRequestDispatcher("/protected/VisualizzaAppuntamenti.jsp").forward(req, resp);
-            listaAppuntamenti.clear();
+            listaAppuntamentiTemp.clear();
 
-        } catch (RuntimeException | SQLException e) {
-            
-            resp.sendError(500, String.valueOf(e));
+
+        } catch (RuntimeException | SQLException ex) {
+
+            resp.sendError(500, String.valueOf(ex));
         }
-        // ritorna una jsp nel quale visualizzo appuntamenti fissati per questo giorno
-        // ed un form nel quale poter inserire un nuovo appuntamento
     }
 }

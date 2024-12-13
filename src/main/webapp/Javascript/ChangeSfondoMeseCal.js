@@ -60,7 +60,7 @@ async function getImmaginePexels(meseLett) {
             return myPhoto;
         }
     } catch (err) {
-        return new Error("problemino:" + err);
+        console.log("problemino: " + err);
     }
 }
 

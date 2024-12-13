@@ -14,6 +14,7 @@
     <%--    foglio css--%>
     <link rel="stylesheet" href="style/style.css">
     <script src="${pageContext.request.contextPath}/Javascript/ChangeSfondoMeseCal.js"></script>
+    <script src="${pageContext.request.contextPath}/Javascript/GetAppuntamenti.js"></script>
 </head>
 
 <body class="flex">
