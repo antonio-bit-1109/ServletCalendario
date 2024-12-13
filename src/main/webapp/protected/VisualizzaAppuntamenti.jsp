@@ -11,11 +11,16 @@
 <head>
     <title>Appuntamenti del giorno</title>
     <link rel="stylesheet" href="style/style.css">
+    <script src="${pageContext.request.contextPath}/Javascript/ChangeSfondoMeseCal.js"></script>
 </head>
 <body>
 
-<a href="http://localhost:8080/CalendarioServlet/generaCale?mese=${param.get("mese")}&anno=${param.get("anno")}">
-    torna indietro </a>
+<div class="bg-grey p1-5 fit-content">
+    <a style="color: black"
+       href="http://localhost:8080/CalendarioServlet/generaCale?mese=${param.get("mese")}&anno=${param.get("anno")}">
+        torna indietro </a>
+</div>
+
 
 <%--se nella request è presente una chiave listaAppuntamenti allora renderizza una tabella--%>
 <c:choose>

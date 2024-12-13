@@ -73,6 +73,10 @@ body {
     align-items: flex-start;
 }
 
+.m0 {
+    margin: 0;
+}
+
 .m2-inline {
     margin-inline: 1em;
 }
@@ -81,12 +85,26 @@ body {
     padding: 0.5em;
 }
 
+.p1-5 {
+    padding: 1.5em;
+}
+
 .bg-red {
     background-color: red;
 }
 
-.scale:hover {
+.fit-content {
+    width: fit-content;
+    height: fit-content;
+}
+
+.cell:hover {
     scale: 1.1;
+}
+
+.bg-grey {
+    background-color: rgba(128, 128, 128, 0.5); /* grey color with 50% transparency */
+
 }
 
 .input {
@@ -99,6 +117,17 @@ body {
     height: 100vh;
 }
 
-.red {
-    color: red;
+.easyDay {
+    background-color: #4be54b;
+    color: yellowgreen;
+}
+
+.midDay {
+    background-color: #efde4b;
+    color: #d29805;
+}
+
+.busyDay {
+    background-color: #ea6b6b;
+    color: #2511e8;
 }

@@ -13,83 +13,96 @@
 
     <%--    foglio css--%>
     <link rel="stylesheet" href="style/style.css">
+    <script src="${pageContext.request.contextPath}/Javascript/ChangeSfondoMeseCal.js"></script>
 </head>
 
 <body class="flex">
 <main>
 
 
-    <h1 class="title">
+    <h1 class="title m0">
         <c:out value="${requestScope.meseString}"/>
     </h1>
 
-    <h2 class="sub-title">
+    <h2 class="sub-title m0">
         <c:out value="${requestScope.anno}"/>
     </h2>
 
-    <table>
-        <thead>
-        <tr>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Lun"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Mart"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Merc"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Giov"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Ven"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Sab"/>
-            </th>
-            <th class="cell font2  m2-inline p1">
-                <c:out value="Dom"/>
-            </th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="row" items="${requestScope.matrix}">
+    <div class="p1-5 bg-grey">
 
+        <table>
+            <thead>
             <tr>
-                <c:forEach var="n" items="${row}">
-
-                    <c:choose>
-                        <c:when test="${n == 0}">
-                            <td class="cell font2  m2-inline p1"></td>
-                        </c:when>
-
-                        <%--                        <c:when test="${ requestScope.densitaImpegniMese  != null }">--%>
-                        <%--                            <td class="cell font2  m2-inline p1"> ciao</td>--%>
-                        <%--                        </c:when>--%>
-
-                        <c:otherwise>
-
-                            <td class="cell font2  m2-inline p1">
-
-                                <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
-                                        <c:param name="mese" value="${requestScope.mese}"/>
-                                         <c:param name="anno" value="${requestScope.anno}"/>
-                                         <c:param name="giorno" value="${n}"/>
-
-
-                                </c:url>">${n}</a>
-                            </td>
-                        </c:otherwise>
-                    </c:choose>
-
-                </c:forEach>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Lun"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Mart"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Merc"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Giov"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Ven"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Sab"/>
+                </th>
+                <th class="cell font2  m2-inline p1">
+                    <c:out value="Dom"/>
+                </th>
             </tr>
+            </thead>
+            <tbody>
+            <c:forEach var="row" items="${requestScope.matrix}">
+                <tr>
+                    <c:forEach var="n" items="${row}">
+                        <c:choose>
+                            <c:when test="${n == 0}">
+                                <td class="cell font2 m2-inline p1"></td>
+                            </c:when>
+                            <c:otherwise>
+                                <c:if test="${not empty requestScope.densitaImpegniMese[n]}">
+                                    <c:set var="className">
+                                        <c:choose>
+                                            <c:when test="${requestScope.densitaImpegniMese[n] == 1}">easyDay</c:when>
+                                            <c:when test="${requestScope.densitaImpegniMese[n] == 2}">midDay</c:when>
+                                            <c:when test="${requestScope.densitaImpegniMese[n] > 2}">busyDay</c:when>
+                                            <%--<c:otherwise>default-class</c:otherwise>--%>
+                                        </c:choose>
+                                    </c:set>
 
-        </c:forEach>
-        </tbody>
-    </table>
+                                    <td class="cell font2 m2-inline p1 ${className}">
+                                        <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
+                                    <c:param name="mese" value="${requestScope.mese}"/>
+                                    <c:param name="anno" value="${requestScope.anno}"/>
+                                    <c:param name="giorno" value="${n}"/>
+                                         </c:url>"> ${n}</a>
+                                    </td>
 
+                                </c:if>
+                                <c:if test="${empty requestScope.densitaImpegniMese[n]}">
+
+                                    <td class="cell font2 m2-inline p1">
+                                        <a href="<c:url value='http://localhost:8080/CalendarioServlet/MostraAppuntamenti'>
+                                        <c:param name="mese" value="${requestScope.mese}"/>
+                                        <c:param name="anno" value="${requestScope.anno}"/>
+                                        <c:param name="giorno" value="${n}"/>
+                                         </c:url>"> ${n} </a>
+                                    </td>
+
+                                </c:if>
+                            </c:otherwise>
+                        </c:choose>
+                    </c:forEach>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
 </main>
 
 <div class="flex flex-col "
@@ -133,14 +146,13 @@
 
 </div>
 
-<div>
-    <div style="padding: 1em">
-        <a style="font-size: 1.5em" href="login">
-            torna indietro</a>
-    </div>
+
+<div style="background-color: grey" class="p1-5 fit-content">
+    <a style="font-size: 1.5em" href="login">
+        torna indietro</a>
 </div>
+
 
 </body>
 </html>
 
-<div></div>
