@@ -1,8 +1,11 @@
 package controller;
 
+import com.google.gson.GsonBuilder;
 import dto.AppuntamentoDTO;
 import dto.UtenteDTO;
 import service.AppuntamentiService;
+
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -45,8 +48,20 @@ public class ServletShowAppuntamentiHover extends HttpServlet {
 
             ArrayList<AppuntamentoDTO> listaAppuntamentiTemp = getAppuntamentiService().ottieniTuttiAppuntamentiGiorno(mese, anno, giorno, user);
 
-            req.setAttribute("listaAppuntamentiTemp", listaAppuntamentiTemp);
-            req.getRequestDispatcher("/protected/VisualizzaAppuntamenti.jsp").forward(req, resp);
+//            req.setAttribute("listaAppuntamentiTemp", listaAppuntamentiTemp);
+//            req.getRequestDispatcher("/protected/AppuntamentiTempTable.jsp").forward(req, resp);
+
+//            setto i dati dentro un json e li reinvio al client
+
+            GsonBuilder builder = new GsonBuilder();
+            Gson gson = builder.create();
+            System.out.println(gson.toJson(listaAppuntamentiTemp));
+
+            resp.setContentType("application/json");
+            resp.setCharacterEncoding("UTF-8");
+            resp.getWriter().write(gson.toJson(listaAppuntamentiTemp));
+            resp.flushBuffer();
+            
             listaAppuntamentiTemp.clear();
 
 

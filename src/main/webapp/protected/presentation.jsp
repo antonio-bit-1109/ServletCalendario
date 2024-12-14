@@ -145,12 +145,31 @@
 
     </div>
 
+
 </div>
 
 
 <div style="background-color: grey" class="p1-5 fit-content">
     <a style="font-size: 1.5em" href="login">
         torna indietro</a>
+</div>
+
+
+<%--    div per la visualizzazione degli appuntamenti del giorno su cui ho fatto hover --%>
+
+<div class="flex align-center">
+    <table class="bg-grey" border="2">
+        <thead id="thead-temp-table">
+        <tr>
+
+        </tr>
+        </thead>
+        <tbody id="tbody-temp-table">
+        <tr>
+
+        </tr>
+        </tbody>
+    </table>
 </div>
 
 

@@ -25,7 +25,7 @@
 <%--se nella request è presente una chiave listaAppuntamenti allora renderizza una tabella--%>
 <c:choose>
     <c:when test="${not empty requestScope.listaAppuntamenti}">
-        <table style="margin-block: 2em" border="2">
+        <table class="bg-grey" style="margin-block: 2em" border="2">
             <thead>
             <tr>
                 <th>id appuntamento</th>
