@@ -31,9 +31,9 @@ async function callServletAppuntamenti(anno, mese, giorno) {
             console.log(JsonData);
 
 
+            // prendo elementi del dom e spalmo dati ricevuti nulla tabella
             ShowData_Table(JsonData);
 
-            // prendo elementi del dom e spalmo dati ricevuti nulla tabella
 
         }
     } catch (ex) {
