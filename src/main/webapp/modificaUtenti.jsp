@@ -13,110 +13,81 @@
     <title>login Effettuato con successo</title>
     <link rel="stylesheet" href="style/style.css"/>
 </head>
-<body>
+<body class="flex flex-col">
 
-<h1>Login effettuato con successo, Benvenuto ${sessionScope.get("user")}</h1>
+<h1>Login effettuato con successo, Benvenuto ${sessionScope.get("user").username}</h1>
 
-<div>
-    <h4>crea nuovo utente</h4>
+<main class="flex flex-col">
 
-    <form action="create" method="post">
-        <label for="creauser"> Inserisci username</label>
-        <input type="text" name="creauser" id="creauser" required>
 
-        <label for="creapass"> Inserisci password</label>
-        <input type="password" name="creapass" id="creapass" required>
-
-        <button type="submit"> crea nuovo utente</button>
-    </form>
     <div>
-        <c:choose>
-            <c:when test="${requestScope.msgSucc != null}">
-                <h6 class="red font1">${requestScope.msgSucc}</h6>
-            </c:when>
-        </c:choose>
+        <h4 class="font2 m0">crea nuovo utente</h4>
+
+        <form class="flex flex-col align-start" action="create" method="post">
+            <label for="creauser"> Inserisci username</label>
+            <input type="text" name="creauser" id="creauser" required>
+
+            <label for="creapass"> Inserisci password</label>
+            <input type="password" name="creapass" id="creapass" required>
+
+            <button type="submit"> crea nuovo utente</button>
+        </form>
+        <div>
+            <c:choose>
+                <c:when test="${requestScope.msgSucc != null}">
+                    <h6 class="red font1">${requestScope.msgSucc}</h6>
+                </c:when>
+            </c:choose>
+        </div>
     </div>
-</div>
 
-<div>
-    <h4>modifica password del tuo account </h4>
-    <form action="editPswUser" method="post">
-        <label for="username"> Inserisci username</label>
-        <input type="text" name="username" id="username" required>
-
-        <label for="oldPass"> Inserisci vecchia password</label>
-        <input type="password" name="oldPass" id="oldPass" required>
-
-        <label for="newPass"> Inserisci nuova password</label>
-        <input type="password" name="newPass" id="newPass" required>
-
-        <button type="submit"> invia</button>
-    </form>
     <div>
-        <c:choose>
-            <c:when test="${requestScope.editPswSucc != null}">
-                <h6 class="red font1">${requestScope.editPswSucc}</h6>
-            </c:when>
-        </c:choose>
+        <h4 class="font2 m0">modifica password del tuo account </h4>
+        <form class="flex flex-col align-start" action="editPswUser" method="post">
+            <label for="username"> Inserisci username</label>
+            <input type="text" name="username" id="username" required>
+
+            <label for="oldPass"> Inserisci vecchia password</label>
+            <input type="password" name="oldPass" id="oldPass" required>
+
+            <label for="newPass"> Inserisci nuova password</label>
+            <input type="password" name="newPass" id="newPass" required>
+
+            <button type="submit"> invia</button>
+        </form>
+        <div>
+            <c:choose>
+                <c:when test="${requestScope.editPswSucc != null}">
+                    <h6 class="red font1">${requestScope.editPswSucc}</h6>
+                </c:when>
+            </c:choose>
+        </div>
     </div>
-</div>
 
-<div>
-    <h4>cancella utente</h4>
-    <form action="delete" method="post">
-        <label for="usernameDel"> Inserisci username</label>
-        <input type="text" name="usernameDel" id="usernameDel" required>
-
-        <label for="passDel"> Inserisci password</label>
-        <input type="password" name="passDel" id="passDel" required>
-
-        <button type="submit"> cancella utente</button>
-    </form>
     <div>
-        <c:choose>
-            <c:when test="${requestScope.msgDeleteSucc != null}">
-                <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>
-            </c:when>
-        </c:choose>
+        <h4 class="font2 m0">cancella utente</h4>
+        <form class="flex flex-col align-start" action="delete" method="post">
+            <label for="usernameDel"> Inserisci username</label>
+            <input type="text" name="usernameDel" id="usernameDel" required>
+
+            <label for="passDel"> Inserisci password</label>
+            <input type="password" name="passDel" id="passDel" required>
+
+            <button type="submit"> cancella utente</button>
+        </form>
+        <div>
+            <c:choose>
+                <c:when test="${requestScope.msgDeleteSucc != null}">
+                    <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>
+                </c:when>
+            </c:choose>
+        </div>
     </div>
-</div>
+</main>
 
-<%--<div>--%>
-<%--    <h4>recupera tutti gli utenti</h4>--%>
-<%--    <form action="" method="get">--%>
-
-<%--        <button type="submit"> recupera utenti</button>--%>
-<%--    </form>--%>
-
-<%--    <c:choose>--%>
-<%--        <c:when test="">--%>
-<%--            <table>--%>
-<%--                <thead>--%>
-<%--                <tr>--%>
-<%--                    <th>id</th>--%>
-<%--                    <th>username</th>--%>
-<%--                </tr>--%>
-<%--                </thead>--%>
-<%--                <tbody>--%>
-<%--                <tr>--%>
-<%--                        &lt;%&ndash;            <td>ciao</td>&ndash;%&gt;--%>
-<%--                        &lt;%&ndash;            <td>bello</td>&ndash;%&gt;--%>
-<%--                </tr>--%>
-<%--                </tbody>--%>
-<%--            </table>--%>
-<%--        </c:when>--%>
-
-<%--    </c:choose>--%>
-
-<%--    &lt;%&ndash;    <div>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;        <c:choose>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;            <c:when test="${requestScope.msgDeleteSucc != null}">&ndash;%&gt;--%>
-<%--    &lt;%&ndash;                <h6 class="red font1">${requestScope.msgDeleteSucc}</h6>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;            </c:when>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;        </c:choose>&ndash;%&gt;--%>
-<%--    &lt;%&ndash;    </div>&ndash;%&gt;--%>
-<%--</div>--%>
-
+<aside>
+    <a href="http://localhost:8080/CalendarioServlet/login">Indietro</a>
+</aside>
 
 </body>
 </html>

@@ -61,6 +61,11 @@ body {
     justify-content: center;
 }
 
+.just-start {
+    justify-content: flex-start;
+}
+
+
 .align-center {
     align-items: center;
 }
@@ -138,4 +143,8 @@ body {
 .busyDay {
     background-color: #ea6b6b;
     color: #2511e8;
+}
+
+.c-red {
+    color: red;
 }

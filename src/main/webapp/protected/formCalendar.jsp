@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: CORSO_JJ09
@@ -21,16 +22,30 @@
         <label style="color: black" for="mese">mese</label>
         <input type="number" name="mese" id="mese" required>
     </div>
+    <div>
+        <c:if test="${requestScope.ErrorMese != null}">
+            <p class="c-red"> ${requestScope.ErrorMese}</p>
+            <c:remove var="ErrorMese" scope="request"/>
+            <audio src="./audios/scream1.mp3" autoplay></audio>
+        </c:if>
+    </div>
 
     <div style="margin: 1em">
         <label style="color: black" for="anno">anno</label>
         <input type="number" name="anno" id="anno" required>
     </div>
+    <div>
+        <c:if test="${requestScope.ErrorAnno != null}">
+            <p class="c-red"> ${requestScope.ErrorAnno}</p>
+            <c:remove var="ErrorAnno" scope="request"/>
+            <audio src="./audios/scream2.mp3" autoplay></audio>
+        </c:if>
+    </div>
     <button type="submit"> ricava calendario</button>
 </form>
 
 <div>
-    <a href="../modificaUtenti.jsp"> modifica utenti</a>
+    <a href="/CalendarioServlet/modificaUtenti.jsp"> modifica utenti</a>
 </div>
 
 </body>

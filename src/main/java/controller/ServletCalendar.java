@@ -2,9 +2,8 @@ package controller;
 
 
 import model.GenerateCalendar;
-import model.UtilityCalendar;
 import service.AppuntamentiService;
-import service.UtentiService;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,8 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
 import java.util.HashMap;
 
 @WebServlet("/generaCale")
@@ -61,12 +58,19 @@ public class ServletCalendar extends HttpServlet {
             int annoNum = Integer.parseInt(anno);
 
             if (meseNum < 1 || meseNum > 12) {
-                resp.sendError(400, "hai inserito un mese non valido. Inserisci una valore compreso tra 1 e 12");
+
+                String ErrorMese = "Il mese deve avere un valore compreso tra 1 e 12.";
+                req.setAttribute("ErrorMese", ErrorMese);
+//                resp.sendError(400, "hai inserito un mese non valido. Inserisci una valore compreso tra 1 e 12");
+                req.getRequestDispatcher("/protected/formCalendar.jsp").forward(req, resp);
                 return;
             }
 
             if (annoNum < 1920) {
-                resp.sendError(400, "la data non può essere inferiore al 1920.");
+                String ErrorAnno = "L'anno non deve essere inferiore al 1920.";
+//                resp.sendError(400, "la data non può essere inferiore al 1920.");
+                req.setAttribute("ErrorAnno", ErrorAnno);
+                req.getRequestDispatcher("/protected/formCalendar.jsp").forward(req, resp);
                 return;
             }
 
